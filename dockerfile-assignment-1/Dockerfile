@@ -1,4 +1,18 @@
 # use this empty Dockerfile to build your assignment
+FROM   node:6-alpine
+
+RUN apk add --update tini
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+
+EXPOSE 3000
+
+CMD [ "/sbin/tini", "--", "node", "./bin/www" ]
 
 # This dir contains a Node.js app, you need to get it running in a container
 # No modifications to the app should be necessary, only edit this Dockerfile
@@ -30,8 +44,8 @@
 # Bonus Extra Credit
 # this will not have you setting up a complete image useful for local development, test, and prod
 # it's just meant to get you started with basic Dockerfile concepts and not focus too much on
-# proper Node.js use in a container. **If you happen to be a Node.js Developer**, then 
-# after you get through more of this course, you should come back and use my 
-# Node Docker Good Defaults sample project on GitHub to change this Dockerfile for 
+# proper Node.js use in a container. **If you happen to be a Node.js Developer**, then
+# after you get through more of this course, you should come back and use my
+# Node Docker Good Defaults sample project on GitHub to change this Dockerfile for
 # better local development with more advanced topics
 # https://github.com/BretFisher/node-docker-good-defaults

@@ -1,0 +1,19 @@
+version: '2'
+services:
+  db:
+    image: postgres:9.6.5-alpine
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: drupaldb
+      POSTGRES_USER: drupaluser
+      POSTGRES_PASSWORD: drupalpassword
+
+  drupal:
+    image: drupal:8.3.7-apache
+    restart: always
+    ports:
+      - 8080:80
+    depends_on:
+      - db
